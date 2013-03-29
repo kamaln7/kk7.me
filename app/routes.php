@@ -11,8 +11,19 @@
 |
 */
 
-Route::get('/', 'UrlController@index');
-Route::resource('url', 'UrlController', ['only' => ['index', 'create', 'store', 'show']]);
+Route::get('/', function(){
+    return Redirect::to(URL::action('UrlController@create'));
+});
+Route::resource('url', 'UrlController', ['only' => ['create', 'store', 'show']]);
 
 // Fallback to checking if it's a short URL hash
-Route::get('/{hash}', 'UrlController@show');
+Route::get('/{hash}', 'UrlController@redirect');
+
+/*
+ * View composers
+ */
+
+View::composer('template.master', function($view)
+{
+    $view->with('lastten', kk7\URL::orderBy('created_at', 'desc')->take(10)->get());
+});

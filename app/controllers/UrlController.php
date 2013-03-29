@@ -3,16 +3,6 @@
 class UrlController extends BaseController {
 
 	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return kk7\URL::all();
-	}
-
-	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -35,7 +25,7 @@ class UrlController extends BaseController {
         );
 
         if($validator->fails()){
-            return Redirect::to(URL::action('UrlController@create'))->withErrors($validator);
+            return Redirect::to(URL::action('UrlController@create'))->withErrors($validator)->withInput();
         } else {
             $url = new kk7\URL;
             $url->hash = uniqid();
@@ -47,7 +37,7 @@ class UrlController extends BaseController {
             $url->hash = $hashids->encrypt($url->id);
             $url->save();
 
-            return Redirect::to(URL::action('UrlController@index'));
+            return Redirect::to(URL::action('UrlController@show', [$url->hash]));
         }
 	}
 
@@ -57,7 +47,22 @@ class UrlController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($hash)
+    public function show($hash)
+    {
+        $hashids = new Hashids(Config::get('app.key'));
+        $id = $hashids->decrypt($hash);
+        $url = kk7\URL::find($id)->first();
+
+        if($url == null){
+            App::abort(404, 'Page not found');
+        } else {
+            $date = new ExpressiveDate($url->created_at);
+            $created = $date->getRelativeDate();
+            return View::make('url.show', ['url' => $url, 'created' => $created]);
+        }
+    }
+
+	public function redirect($hash)
 	{
         $hashids = new Hashids(Config::get('app.key'));
         $id = $hashids->decrypt($hash);

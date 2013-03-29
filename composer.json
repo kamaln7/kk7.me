@@ -1,7 +1,8 @@
 {
 	"require": {
 		"laravel/framework": "4.0.*",
-        "hashids/hashids": "*"
+        "hashids/hashids": "*",
+        "jasonlewis/expressive-date": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
