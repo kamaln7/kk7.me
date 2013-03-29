@@ -12,5 +12,7 @@
 */
 
 Route::get('/', 'UrlController@index');
-
 Route::resource('url', 'UrlController', ['only' => ['index', 'create', 'store', 'show']]);
+
+// Fallback to checking if it's a short URL hash
+Route::get('/{hash}', 'UrlController@show');
