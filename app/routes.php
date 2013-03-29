@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'UrlController@index');
+
+Route::resource('url', 'UrlController', ['only' => ['index', 'create', 'store', 'show']]);
