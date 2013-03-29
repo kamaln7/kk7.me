@@ -9,6 +9,7 @@
     </p>
     <h5>Statistics</h5>
     <p>
+        Redirects to <code>{{ $url->url }}</code><br>
         Created {{ $created }}.<br>
         {{ $url->views }} views.
     </p>
