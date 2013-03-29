@@ -19,6 +19,13 @@
     <div class="container-narrow">
 
         <div class="masthead">
+            <ul class="nav nav-pills pull-right">
+                <li
+                    @if(Route::currentRouteAction() == 'UrlController@create')
+                        class="active"
+                    @endif
+                >{{ Html::link(URL::action('UrlController@create'), 'Shorten a URL') }}</li>
+            </ul>
             <h3 class="muted">kk7.me</h3>
         </div>
 
