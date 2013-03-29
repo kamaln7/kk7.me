@@ -66,6 +66,9 @@ class UrlController extends BaseController {
         if($url == null){
             App::abort(404, 'Page not found');
         } else {
+            ++$url->views;
+            $url->save();
+
             return Redirect::to($url->url, 302);
         }
 	}
