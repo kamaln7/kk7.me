@@ -43,7 +43,9 @@ class UrlController extends BaseController {
 
             $url->save();
 
-            // TODO: Swap with a hashid
+            $hashids = new Hashids(Config::get('app.key'));
+            $url->hash = $hashids->encrypt($url->id);
+            $url->save();
 
             return Redirect::to(URL::action('UrlController@index'));
         }
@@ -55,9 +57,11 @@ class UrlController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($hash)
 	{
-		$url = kk7\URL::whereHash($id)->first();
+        $hashids = new Hashids(Config::get('app.key'));
+        $id = $hashids->decrypt($hash);
+		$url = kk7\URL::find($id)->first();
 
         if($url == null){
             App::abort(404, 'Page not found');
