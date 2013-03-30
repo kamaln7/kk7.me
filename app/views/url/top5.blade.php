@@ -1,6 +1,6 @@
-<h4>Last 10 URLs</h4>
+<h4>Top 5 Shortened URLs</h4>
 <ol>
-    @foreach($lastten as $url)
+    @foreach($topfive as $url)
         <li><a href="{{ URL::action('UrlController@show', [$url->hash]) }}">{{ $url->hash }}</a></li>
     @endforeach
 </ol>

@@ -25,5 +25,6 @@ Route::get('/{hash}', 'UrlController@redirect');
 
 View::composer('template.master', function($view)
 {
-    $view->with('lastten', kk7\URL::orderBy('created_at', 'desc')->take(10)->get());
+    $view->with('lastfive', kk7\URL::orderBy('created_at', 'desc')->take(5)->get())
+         ->with('topfive', kk7\URL::orderBy('views', 'desc')->take(5)->get());
 });

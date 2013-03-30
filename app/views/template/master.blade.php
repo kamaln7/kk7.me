@@ -39,10 +39,15 @@
 
         <div class="row-fluid marketing">
             <div class="span6">
-                @include('url.last10')
+                @include('url.last5')
             </div>
 
             <div class="span6">
+                @include('url.top5')
+            </div>
+        </div>
+        <div class="row-fluid marketing">
+            <div class="span12">
                 <h4>kk7.me is opensource!</h4>
                 <p>kk7.me is built on top of the excellent <a href="http://laravel.com">Laravel 4</a> framework. You can view <a href="https://github.com/KamalN7/kk7.me">kk7.me's source code on Github</a>.</p>
             </div>
